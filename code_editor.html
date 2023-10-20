@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <title>Code Editor</title>
+</head>
+<body>
+    <div class="code-editor">
+        <button class="code-editor__button code-editor__button--copy">Copy</button>
+        <button class="code-editor__button code-editor__button--save">Save</button>
+        <button class="code-editor__button code-editor__button--lock">Lock</button>
+        <textarea class="code-editor__textarea" placeholder="Type your code here..."></textarea>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
+
+
+<style>
+
+    /* General styling */
+.code-editor {
+  display: flex;
+  flex-direction: column;
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+/* Buttons */
+.code-editor__button {
+  padding: 8px 12px;
+  margin: 4px;
+  cursor: pointer;
+  border: none;
+  background: #3498db;
+  color: #fff;
+  border-radius: 4px;
+}
+
+.code-editor__button--copy {
+  background: #27ae60;
+}
+
+.code-editor__button--lock {
+  background: #e74c3c;
+}
+
+/* Textarea */
+.code-editor__textarea {
+  width: 100%;
+  height: 200px;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+/* Locked state */
+.code-editor--locked .code-editor__textarea {
+  background-color: #f1f1f1;
+  cursor: not-allowed;
+}
+
+/* Indentation */
+.code-editor__textarea::before {
+  content: "  "; /* Two spaces for each line of indentation */
+}
+
+</style>
+
+
+<script>
+const codeEditor = document.querySelector('.code-editor');
+const copyButton = codeEditor.querySelector('.code-editor__button--copy');
+const saveButton = codeEditor.querySelector('.code-editor__button--save');
+const lockButton = codeEditor.querySelector('.code-editor__button--lock');
+const textarea = codeEditor.querySelector('.code-editor__textarea');
+
+// Copy button functionality
+copyButton.addEventListener('click', () => {
+  textarea.select();
+  document.execCommand('copy');
+});
+
+//save button functionality
+saveButton.addEventListener('click', () => {
+    alert("Document Saved");
+})
+
+// Lock/Unlock button functionality
+lockButton.addEventListener('click', () => {
+  codeEditor.classList.toggle('code-editor--locked');
+  textarea.disabled = codeEditor.classList.contains('code-editor--locked');
+  lockButton.textContent = codeEditor.classList.contains('code-editor--locked') ? 'Unlock' : 'Lock';
+});
+
+</script>
